@@ -1,0 +1,22 @@
+{
+  "name": "Scoreboard",
+  "version": "1.0.0",
+  "description": "Jajajaja te picó la curiosidad o que",
+  "main": "app.js",
+  "scripts": {
+    "test": "start:dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IgnacioLurati1/Meetings-Scoreboard.git"
+  },
+  "author": "Ignacio Lurati",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IgnacioLurati1/Meetings-Scoreboard/issues"
+  },
+  "homepage": "https://github.com/IgnacioLurati1/Meetings-Scoreboard#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

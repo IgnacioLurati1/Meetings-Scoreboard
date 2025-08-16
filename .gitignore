@@ -1,3 +1,6 @@
+src/config/testing.http
+
+
 # Logs
 logs
 *.log
