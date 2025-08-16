@@ -1,12 +1,14 @@
 import { Router } from 'express'
 
-import {getOne, getAll, update, remove, create} from '../controlers/loginController.js'
+import {getOne, getAll, update, remove, create} from '../controlers/scoreboardController.js'
 
 const router = Router()
 
-router.get('/scoreboard/:surname', getOne);
-router.get('/scoreboard', getAll);
-router.post('/scoreboard', create);
-router.update('/scoreboard/:surname', update);
-router.delete('/scoreboard/:surname', remove);
+router.get('/:surname', getOne);
+router.get('/', getAll);
+router.post('/', create);
+router.put('/:surname', update);
+router.patch('/:surname', update);
+router.delete('/:surname', remove);
 
+export default router;

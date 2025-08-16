@@ -1,10 +1,11 @@
 {
-  "name": "Scoreboard",
+  "name": "e",
   "version": "1.0.0",
   "description": "Jajajaja te picó la curiosidad o que",
   "main": "app.js",
+  "type": "module",
   "scripts": {
-    "test": "start:dev"
+    "start": "node ./src/app.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,10 @@
   },
   "homepage": "https://github.com/IgnacioLurati1/Meetings-Scoreboard#readme",
   "dependencies": {
-    "express": "^5.1.0"
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "firebase-admin": "^13.4.0",
+    "firebase-functions": "^6.4.0"
   }
 }

@@ -1,16 +1,17 @@
-const functions = require("firebase-functions");
-const admin = require("firebase-admin");
-const express = require("express");
-const cors = require("cors");
-
-
-
-admin.initializeApp();
-const db = admin.firestore();
+import scoreboardRouter from './routers/scoreboardRouter.js';
+import * as functions from "firebase-functions";
+import admin from "firebase-admin";
+import express from "express";
+import cors from "cors";
 
 const app = express();
 
 app.use(cors({ origin: true }));
 app.use(express.json());
 
-app.get('/scoreboard', (req, res), loginController);
+app.use('/api/scoreboard', scoreboardRouter);
+
+
+app.listen(3000, () => {
+    console.log("Server is running on port 3000");
+});

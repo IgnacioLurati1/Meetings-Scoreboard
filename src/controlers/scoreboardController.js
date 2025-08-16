@@ -1,3 +1,5 @@
+import {db} from "../config/firebase.js";
+
 
 function getAll(req, res) {
   db.collection("scoreboard")
@@ -86,7 +88,7 @@ function remove(req, res) {
     });
 }
 
-exports = {
+export {
     getAll,
     getOne,
     create,
