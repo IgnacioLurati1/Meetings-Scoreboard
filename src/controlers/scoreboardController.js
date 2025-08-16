@@ -35,16 +35,23 @@ function getOne(req, res) {
     });
 }
 
-function create(req, res){
-    db.collection("scoreboard")
-    .add(req.body)
-    .then((docRef) => {
+async function create(req, res){
+    try {
+      const surname = req.body.surname;
+
+      const snapshot = await db.collection("scoreboard").where("surname", "==", surname).get();
+
+      if(!snapshot.empty) {
+        return res.status(400).json({ error: "Ya lo cargaste pibe" });
+      }
+
+      const docRef = await db.collection("scoreboard").add(req.body);
       res.status(201).json({ id: docRef.id, ...req.body });
-    })
-    .catch((error) => {
-      console.error("Error adding player:", error);
+      
+    } catch (error) {
+      console.error("Error creating player:", error);
       res.status(500).json({ error: "Internal server error" });
-    });
+    }
 }
 
 function update(req, res){
