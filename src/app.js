@@ -5,15 +5,36 @@ import cors from 'cors';
 
 const app = express(); 
 
-const whitelist = ['http://localhost:5137', 'https://meetings-scoreboard-p6mjgu41m-ignaciolurati1s-projects.vercel.app'];
+app.use((req, res, next) => {
+  console.log('Method:', req.method, 'Path:', req.path, 'Origin:', req.headers.origin);
+  next();
+});
+
+const whitelist = [
+  'http://localhost:5137',
+  'https://meetings-scoreboard-p6mjgu41m-ignaciolurati1s-projects.vercel.app'
+];
 
 const corsOptions = {
-  origin: whitelist,
-  exposedHeaders: 'Authorization'
+  origin: function (origin, callback) {
+    // permitir requests sin Origin (p. ej. health checks o server-side)
+    if (!origin) return callback(null, true);
+
+    if (whitelist.includes(origin)) {
+      return callback(null, true);
+    }
+
+    // no lanzar Error: devolver false para que CORS no autorice la cabecera,
+    // pero sin romper el servidor
+    return callback(null, false);
+  },
+  exposedHeaders: ['Authorization'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
 };
 
-
-// Aplica la configuración de CORS a toda la aplicación
+// Aplica CORS globalmente (suficiente para manejar preflight)
 app.use(cors(corsOptions));
 
 
