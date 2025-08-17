@@ -15,8 +15,8 @@ export default function Navbar({ openModal }) {
 
         {isOpen &&<div className="colapse">
 
-            <button className="navbar-button" onClick={() => token ? (() => {localStorage.removeItem("token"), location.reload()})() : openModal(true)} ><FaUserCircle className="button-icon"/>{token ? "Logout" : "Login"}</button>
-            <button className="navbar-button"><FaCamera className="button-icon button-camera"/><a href="https://drive.google.com/drive/folders/17Tji2AM1bqK2lq56nT6IBnfzxvmFi7D8" className="navbar-href"> Fotos</a></button>
+            <button className="navbar-button" onClick={() => token ? (() => {localStorage.removeItem("token"), location.reload()})() : openModal(true)} ><FaUserCircle className="button-icon"/><div className="button-text">{token ? "Logout" : "Login"}</div></button>
+            <button className="navbar-button"><FaCamera className="button-icon button-camera"/><a href="https://drive.google.com/drive/folders/17Tji2AM1bqK2lq56nT6IBnfzxvmFi7D8" className="navbar-href"><div className="button-text">Fotos</div></a></button>
             </div>
        } 
        </div>
