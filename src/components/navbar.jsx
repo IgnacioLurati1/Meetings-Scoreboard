@@ -5,7 +5,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { FaCamera } from "react-icons/fa"; 
 
 
-export default function Navbar(){
+export default function Navbar({ openModal }) {
     const [isOpen, setIsOpen] = useState(false);
 
     return(
@@ -14,7 +14,7 @@ export default function Navbar(){
 
         {isOpen &&<div className="colapse">
 
-            <button className="navbar-button"><FaUserCircle className="button-icon"/> Login</button>
+            <button className="navbar-button" onClick={() => openModal(true)}><FaUserCircle className="button-icon"/> Login</button>
             <button className="navbar-button"><FaCamera className="button-icon button-camera"/><a href="https://drive.google.com/drive/folders/17Tji2AM1bqK2lq56nT6IBnfzxvmFi7D8" className="navbar-href"> Fotos</a></button>
             </div>
        } 
