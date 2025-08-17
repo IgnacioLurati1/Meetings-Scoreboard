@@ -8,15 +8,10 @@ const app = express();
 const whitelist = ['http://localhost:5137', 'https://meetings-scoreboard-p6mjgu41m-ignaciolurati1s-projects.vercel.app'];
 
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Acceso no permitido por CORS'));
-    }
-  },
-  exposedHeaders: 'Authorization',
+  origin: whitelist,
+  exposedHeaders: 'Authorization'
 };
+
 
 // Aplica la configuración de CORS a toda la aplicación
 app.use(cors(corsOptions));
