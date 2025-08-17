@@ -69,6 +69,7 @@ body::before {
 
   content: '';
   position: fixed;
+  min-height: calc(100vh + env(safe-area-inset-bottom));
   top: 0;
   left: 0;
   width: 100%;
