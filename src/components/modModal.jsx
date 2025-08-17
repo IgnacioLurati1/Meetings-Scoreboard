@@ -22,7 +22,7 @@ export default function ModModal({ selectedScore, isOpen, onClose, handleMod, ha
             Nombre:
             <input className="input" type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />
         </div>
-        <div className="content-input">
+        <div className="content-input" style={{ fontWeight: "bold" }}>
             Apellido/Apodo:
             <input className="input" type="text" name="surname" value={surname} onChange={(e) => setSurname(e.target.value)} />
         </div>
@@ -35,8 +35,8 @@ export default function ModModal({ selectedScore, isOpen, onClose, handleMod, ha
             <input autoFocus className="input" type="number" name="score" value={score} onChange={(e) => setScore(e.target.value)} />
         </div>
         <div className="buttons">
-          <button className="mod-button" onClick={() => handleMod({ name, surname, middlename, score }, selectedScore.surname)}>Modificar</button>
-          <button className="delete-button" onClick={() => handleDelete()}>Eliminar</button>
+          <button className={!surname.trim() ? "disabled-button" : "mod-button"} disabled={!surname.trim()} onClick={() => handleMod({ name, surname, middlename, score }, selectedScore.surname)}>Modificar</button>
+          <button className={!surname.trim() ? "disabled-button" : "delete-button"} disabled={!surname.trim()} onClick={() => handleDelete()}>Eliminar</button>
         </div>
       </div>
     </div>

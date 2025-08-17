@@ -22,7 +22,7 @@ export default function AddModal({ isOpen, onClose, handleCreate }) {
             Nombre:
             <input className="input" type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />
         </div>
-        <div className="content-input">
+        <div className="content-input" style={{ fontWeight: "bold" }}>
             Apellido/Apodo:
             <input className="input" type="text" name="surname" value={surname} onChange={(e) => setSurname(e.target.value)} />
         </div>
@@ -35,7 +35,7 @@ export default function AddModal({ isOpen, onClose, handleCreate }) {
             <input className="input" type="number" name="score" value={score} onChange={(e) => setScore(e.target.value)} />
         </div>
 
-          <button className="create-button" onClick={() => handleCreate({ name, surname, middlename, score })}>Crear</button>
+          <button className={!surname.trim() ? "disabled-button" : "create-button"} disabled={!surname.trim()} onClick={() => handleCreate({ name, surname, middlename, score })}>Crear</button>
       </div>
     </div>
   );    
