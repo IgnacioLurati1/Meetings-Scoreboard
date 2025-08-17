@@ -2,10 +2,17 @@
 import ScoreLabel from "../components/scoreLabel.jsx" 
 import "./scoreboard.css";
 import {useEffect, useState} from "react";
+import { ClipLoader } from 'react-spinners';
+
 
 export default function Scoreboard() {
 
+const rand = Math.floor(Math.random() * 5);
+
+var texts = ["Fucci fucci chuchis pupu puchi", "Tudino pasame el maniquin challenge", "El server es gratis pibe\nno te quejes", "ratatauvedoblepedopedopito", "chicles man es increible"]
+
 var [people, setPeople] = useState([]);
+var [loading, setLoading] = useState(true);
 
 useEffect(() => {
   fetch("https://meetings-scoreboard.onrender.com/api/scoreboard")
@@ -25,9 +32,11 @@ useEffect(() => {
   { id: 11, name: "Juan", surname: "Pérez", middlename: "Carlos", score: 90 }
 ];
     data = [...data, ...peopleAdd];
+    setLoading(false);
     setPeople(data.sort((a, b) => b.score - a.score));
   })
   .catch(error => {
+    setLoading(false);
     console.log(error);
     console.log("Failed to fetch data from the API");
   })
@@ -37,10 +46,14 @@ useEffect(() => {
   return ( 
   <section className="scoreboard">
     <h1 className="scoreboard-title">TABLA DE POSICIONES</h1>
+    {loading && <div className="loading">
+      <ClipLoader color="#ffffffff" size={300} />
+      <h1>{texts[rand]}</h1>
+      </div>}
     <div className="scoreboard-grid">
       <ul className="scoreboard-list">
-        {people.map((person) => (
-          <li key={person.id}>
+        {people.map((person, index) => (
+          <li key={person.id} style={{ animationDelay: `${index * 0.15}s` }}>
             <ScoreLabel name={person.name} surname={person.surname} middlename={person.middlename} score={person.score} />
           </li>
         ))}

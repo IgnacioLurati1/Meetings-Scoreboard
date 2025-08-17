@@ -1,91 +1,83 @@
-/* Barra superior */
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #222;
-  padding: 1rem;
-  color: white;
-  position: sticky;
-  top: 0;
-}
-
-.navbar .logo {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.nav-links {
-  display: flex;
-  list-style: none;
-  gap: 1.5rem;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: white;
-  font-weight: 500;
-}
-
-/* Botón hamburguesa oculto en desktop */
-.menu-btn {
-  font-size: 1.5rem;
-  display: none;
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-}
-
-/* Menú lateral (oculto por defecto) */
-.side-menu {
   position: fixed;
   top: 0;
-  right: -250px; /* fuera de pantalla */
-  width: 250px;
-  height: 100%;
-  background: #333;
-  color: white;
-  padding: 2rem;
-  transition: right 0.3s ease;
+  left: 0;
   z-index: 1000;
+  font-size: 20px;
 }
 
-.side-menu.open {
-  right: 0;
+.colapse{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.side-menu .close-btn {
-  font-size: 1.2rem;
-  background: none;
+@keyframes expandNav {
+  from { width: 0px; padding-right: 0px; }
+  to { width: 300px; padding-right: 40px; }
+}
+
+.openNav {
+
+  animation: expandNav 0.3s forwards; /* forwards mantiene el estado final */
+  overflow: hidden;
+  background-color: black;
+  overflow: hidden;  
+  height: 100vh;
+  box-sizing: border-box;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+}
+
+.colapse-button{
+  background-color: transparent;
   border: none;
+  box-shadow: none;
+  margin-top: 5px;
+  margin-right: 5px;
+  margin-bottom: 20px;
+
+}
+
+.colapse-button:focus{
+  border: none;
+  box-shadow: none;
+}
+
+.navbar-icon {
+  font-size: 24px;
+  color: white !important;
+}
+
+.navbar-button {
+  background-color: transparent;
   color: white;
+  border: none;
   cursor: pointer;
-  margin-bottom: 2rem;
+  font-size: 40px;
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  margin-left: 40px;
+  display: flex;
+  align-items: center;
 }
 
-.side-menu ul {
-  list-style: none;
-  padding: 0;
+.button-icon {
+  margin-right: 20px;
 }
 
-.side-menu li {
-  margin: 1rem 0;
+.button-camera {
+  font-size: 55px;
 }
 
-.side-menu a {
-  color: white;
+.navbar-button:focus{
+  border: none;
+  box-shadow: none;
+}
+
+.navbar-href {
   text-decoration: none;
-  font-size: 1.1rem;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .nav-links {
-    display: none; /* oculta en celu */
-  }
-
-  .menu-btn {
-    display: block; /* muestra hamburguesa */
-  }
+  color: inherit;
+  width: 100%;
+  text-align: left;
 }

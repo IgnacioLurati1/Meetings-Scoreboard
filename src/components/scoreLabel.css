@@ -11,3 +11,32 @@
     width: 100%;
 }
 
+.score {
+    background: linear-gradient(90deg, #ff6200, #ff0000); /* degradado horizontal */
+    -webkit-background-clip: text;  /* importante para aplicar al texto */
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+
+    .logo {
+        width: 40px;
+        height: 40px;
+
+    }
+
+}

@@ -1,0 +1,24 @@
+import "./navbar.css";
+import { Sling as Hamburger } from 'hamburger-react';
+import {useState} from "react";
+import { FaUserCircle } from "react-icons/fa";
+import { FaCamera } from "react-icons/fa"; 
+
+
+export default function Navbar(){
+    const [isOpen, setIsOpen] = useState(false);
+
+    return(
+        <div className={`navbar ${isOpen ? "navbar openNav" : "navbar"}`}>
+            <button className="colapse-button" onClick={() => setIsOpen(!isOpen)}><Hamburger className="navbar-icon" toggled={isOpen} toggle={setIsOpen} color="#fff" /></button>
+
+        {isOpen &&<div className="colapse">
+
+            <button className="navbar-button"><FaUserCircle className="button-icon"/> Login</button>
+            <button className="navbar-button"><FaCamera className="button-icon button-camera"/><a href="https://drive.google.com/drive/folders/17Tji2AM1bqK2lq56nT6IBnfzxvmFi7D8" className="navbar-href"> Fotos</a></button>
+            </div>
+       } 
+       </div>
+        
+    )
+}
