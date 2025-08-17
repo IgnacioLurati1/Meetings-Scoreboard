@@ -15,8 +15,8 @@ export default function Navbar({ openModal }) {
 
         {isOpen &&<div className="colapse">
 
-            <button className="navbar-button" onClick={() => openModal(true)}><FaUserCircle className="button-icon"/>{token ? "Logged" : "Login"}</button>
-            <button className="navbar-button"><FaCamera className="button-icon button-camera"/><a href="https://drive.google.com/drive/folders/17Tji2AM1bqK2lq56nT6IBnfzxvmFi7D8" className="navbar-href"> Fotos</a></button>
+            <button className="navbar-button" onClick={() => openModal(true)}><FaUserCircle className="button-icon"/><div className="button-text">{token ? "Logged" : "Login"}</div></button>
+            <button className="navbar-button"><FaCamera className="button-icon button-camera"/><a href="https://drive.google.com/drive/folders/17Tji2AM1bqK2lq56nT6IBnfzxvmFi7D8" className="navbar-href button-text"> Fotos</a></button>
             </div>
        } 
        </div>

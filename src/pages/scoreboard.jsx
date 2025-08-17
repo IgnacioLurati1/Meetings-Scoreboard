@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import { ClipLoader } from 'react-spinners';
 import { AiOutlinePlus } from "react-icons/ai";
 import  AddModal from "../components/addModal.jsx";
+import ModModal from "../components/modModal.jsx";
 
 
 export default function Scoreboard() {
@@ -17,6 +18,8 @@ const [people, setPeople] = useState([]);
 const [loading, setLoading] = useState(true);
 const [token, setToken] = useState(localStorage.getItem("token"));
 const [modalVisible, setModalVisible] = useState(false);
+const [modalEditVisible, setEditModalVisible] = useState(false);
+const [selectedScore, setSelectedScore] = useState(null);
 
 useEffect(() => {
   fetch("https://meetings-scoreboard.onrender.com/api/scoreboard")
@@ -25,17 +28,6 @@ useEffect(() => {
   })
   .then(data => {
     console.log(data);
-    var peopleAdd = [
-  { id: 4, name: "Juan", surname: "Pérez", middlename: "Carlos", score: 90 },
-  { id: 5, name: "Juan", surname: "Pérez", middlename: "Carlos", score: 90 },
-  { id: 6, name: "Juan", surname: "Pérez", middlename: "Carlos", score: 90 },
-  { id: 7, name: "Juan", surname: "Pérez", middlename: "Carlos", score: 90 },
-  { id: 8, name: "Juan", surname: "Pérez", middlename: "Carlos", score: 90 },
-  { id: 9, name: "Juan", surname: "Pérez", middlename: "Carlos", score: 90 },
-  { id: 10, name: "Juan", surname: "Pérez", middlename: "Carlos", score: 90 },
-  { id: 11, name: "Juan", surname: "Pérez", middlename: "Carlos", score: 90 }
-];
-    data = [...data, ...peopleAdd];
     setLoading(false);
     setPeople(data.sort((a, b) => b.score - a.score));
   })
@@ -45,6 +37,44 @@ useEffect(() => {
     console.log("Failed to fetch data from the API");
   })
 }, []);
+
+function modUser(data, originalSurname) {
+  console.log(originalSurname);
+  fetch(`https://meetings-scoreboard.onrender.com/api/scoreboard/${encodeURIComponent(originalSurname)}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      name: data.name,
+      surname: data.surname,
+      middlename: data.middlename,
+      score: data.score
+    })
+  })
+  .then(res => res.json())
+  .then(response => {
+    setPeople(prevPeople => prevPeople.map(person => person.id === response.id ? response : person));
+    setEditModalVisible(false);
+  })
+  .catch(err => {
+    console.error("Error al hacer PUT:", err);
+  });
+}
+
+function deleteUser(surname) {
+  fetch(`https://meetings-scoreboard.onrender.com/api/scoreboard/${surname}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    }
+  })
+  .catch(err => {
+    console.error("Error al hacer DELETE:", err);
+  });
+}
 
 function createUser(data) {
   fetch("https://meetings-scoreboard.onrender.com/api/scoreboard", {
@@ -62,7 +92,6 @@ function createUser(data) {
 })
   .then(res => res.json())
   .then(response => {
-    console.log("Respuesta del servidor:", response);
     setPeople(prevPeople => [response, ...prevPeople]);
     setModalVisible(false);
   })
@@ -75,6 +104,7 @@ function createUser(data) {
   return ( 
   <section className="scoreboard">
     {token && <AddModal isOpen={modalVisible} onClose={() => setModalVisible(false)} handleCreate={createUser} />}
+    {token && selectedScore && <ModModal selectedScore={selectedScore} isOpen={modalEditVisible} onClose={() => setEditModalVisible(false)} handleDelete={() => deleteUser(selectedScore.surname)} handleMod={modUser} />}
     <h1 className="scoreboard-title">TABLA DE POSICIONES</h1>
     {loading && <div className="loading">
       <ClipLoader color="#ffffffff" size={300} />
@@ -84,7 +114,7 @@ function createUser(data) {
       <ul className="scoreboard-list">
         {people.map((person, index) => (
           <li key={person.id} style={{ animationDelay: `${index * 0.15}s` }}>
-            <ScoreLabel name={person.name} surname={person.surname} middlename={person.middlename} score={person.score} />
+            <ScoreLabel setSelectedScore={setSelectedScore} setEditModalVisible={setEditModalVisible} name={person.name} surname={person.surname} middlename={person.middlename} score={person.score} />
           </li>
         ))}
       </ul>

@@ -11,9 +11,14 @@
     width: 100%;
 }
 
+.score-label:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
 .score {
     background: linear-gradient(90deg, #ff6200, #ff0000); /* degradado horizontal */
     -webkit-background-clip: text;  /* importante para aplicar al texto */
+    background-clip: text; /* estándar para compatibilidad */
     -webkit-text-fill-color: transparent;
     font-weight: bold;
 }

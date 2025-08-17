@@ -1,0 +1,32 @@
+.mod-button {
+    background-color: #0877d7;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    margin-top: 20px;
+
+}
+
+.delete-button {
+    background-color: #f81901;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    margin-top: 20px;
+
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}

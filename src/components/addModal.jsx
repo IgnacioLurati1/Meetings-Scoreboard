@@ -1,5 +1,5 @@
 import "./genericModal.css";
-import "./createModal.css";
+import "./addModal.css";
 import {useState} from "react";
 
 
