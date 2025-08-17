@@ -11,27 +11,22 @@ app.use((req, res, next) => {
 });
 
 const whitelist = [
-  'http://localhost:5137',
+  'http://localhost:5173',
+  'http://localhost:5173/',
   'https://meetings-scoreboard-p6mjgu41m-ignaciolurati1s-projects.vercel.app'
 ];
 
 const corsOptions = {
-  origin: function (origin, callback) {
-    // permitir requests sin Origin (p. ej. health checks o server-side)
+  origin: (origin, callback) => {
+    // permitir requests sin origin (health checks/server-side)
     if (!origin) return callback(null, true);
-
-    if (whitelist.includes(origin)) {
-      return callback(null, true);
-    }
-
-    // no lanzar Error: devolver false para que CORS no autorice la cabecera,
-    // pero sin romper el servidor
-    return callback(null, false);
+    // permitir cualquier origin devolviendo true
+    return callback(null, true);
   },
-  exposedHeaders: ['Authorization'],
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  exposedHeaders: ['Authorization']
 };
 
 // Aplica CORS globalmente (suficiente para manejar preflight)
