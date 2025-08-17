@@ -69,10 +69,12 @@ body::before {
 
   content: '';
   position: fixed;
+  padding-top: env(safe-area-inset-top); /* Or use calc() with the env() function */
+  padding-bottom: env(safe-area-inset-bottom);
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: url('../assets/Lospibes.jpg') center/cover no-repeat;
   z-index: -1;
   filter: brightness(30%);
@@ -97,7 +99,7 @@ body::before {
 
 
     .scoreboard-grid {
-        height: 65vh;
+        height: 55vh;
         font-size: 22px;
     }
 }
