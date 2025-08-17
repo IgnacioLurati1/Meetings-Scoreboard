@@ -23,7 +23,7 @@ export default function AddModal({ isOpen, onClose, handleCreate }) {
             <input className="input" type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />
         </div>
         <div className="content-input">
-            Apellido:
+            Apellido/Apodo:
             <input className="input" type="text" name="surname" value={surname} onChange={(e) => setSurname(e.target.value)} />
         </div>
         <div className="content-input">

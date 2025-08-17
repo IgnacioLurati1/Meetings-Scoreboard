@@ -1,9 +1,9 @@
 .score-label {
 
     color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 7fr 1fr;
+    place-items: center;
     border-top: 1px solid white;
     background-color: transparent;
     padding: 10px;
