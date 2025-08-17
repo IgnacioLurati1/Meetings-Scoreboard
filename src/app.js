@@ -1,20 +1,30 @@
 import scoreboardRouter from './routers/scoreboardRouter.js';
 import loginRouter from './routers/loginRouter.js';
-import * as functions from "firebase-functions";
-import admin from "firebase-admin";
 import express from "express";
-import cors from "cors";
 
 
 const app = express();
 
-app.use(cors({
-  origin: "*",
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["*"]
-}));
+app.use((req, res, next) => {
+  const allowedOrigin = "http://localhost:5173";
+  const origin = req.headers.origin;
 
-app.options("*", cors());
+  if (origin === allowedOrigin) {
+    res.header("Access-Control-Allow-Origin", origin);
+    res.header(
+      "Access-Control-Allow-Methods",
+      "GET,POST,PUT,DELETE,OPTIONS"
+    );
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Content-Type, Authorization"
+    );
+  }
+
+  if (req.method === "OPTIONS") return res.sendStatus(204);
+
+  next();
+});
 
 
 app.use(express.json());
