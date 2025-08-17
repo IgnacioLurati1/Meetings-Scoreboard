@@ -1,22 +1,31 @@
 import express from "express";
-import cors from "cors";
 import scoreboardRouter from './routers/scoreboardRouter.js';
 import loginRouter from './routers/loginRouter.js';
 
 const app = express();
 
 // CORS configurado solo para localhost
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || origin === "http://localhost:5173") {
-      callback(null, true);
-    } else {
-      callback(new Error("No permitido por CORS"));
-    }
-  },
-  allowedHeaders: ["Content-Type", "Authorization"],
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
-}));
+app.use((req, res, next) => {
+  const allowedOrigin = "https://vercel.com/ignaciolurati1s-projects/meetings-scoreboard/3Pq6sHMSq8hSZCXExQr5tAjwDce8"; // tu frontend desplegado
+  const origin = req.headers.origin;
+
+  if (origin === allowedOrigin) {
+    res.header("Access-Control-Allow-Origin", origin);
+    res.header(
+      "Access-Control-Allow-Methods",
+      "GET,POST,PUT,DELETE,OPTIONS"
+    );
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Content-Type, Authorization"
+    );
+    res.header("Access-Control-Allow-Credentials", "true"); // si usás cookies o auth
+  }
+
+  if (req.method === "OPTIONS") return res.sendStatus(204);
+
+  next();
+});
 
 // Middleware para parsear JSON
 app.use(express.json());
