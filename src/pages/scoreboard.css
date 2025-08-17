@@ -77,7 +77,8 @@ body::before {
   height: 100vh;
   background: url('../assets/Lospibes.jpg') center/cover no-repeat;
   z-index: -1;
-  filter: brightness(30%);
+  filter: blur(1px) brightness(30%);
+  transform: scale(1.01);
 }
 
 .scoreboard-title {
