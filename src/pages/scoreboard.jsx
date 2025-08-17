@@ -4,7 +4,7 @@ import "./scoreboard.css";
 import {useEffect, useState} from "react";
 import { ClipLoader } from 'react-spinners';
 import { AiOutlinePlus } from "react-icons/ai";
-import CreateModal from "../components/createModal.jsx";
+import  CreateModal from "../components/createModal.jsx";
 
 
 export default function Scoreboard() {
