@@ -47,7 +47,7 @@ useEffect(() => {
 }, []);
 
 function createUser(data) {
-  fetch("https://tu-backend.onrender.com/api/endpoint", {
+  fetch("https://tu-backend.onrender.com/api/scoreboard", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
