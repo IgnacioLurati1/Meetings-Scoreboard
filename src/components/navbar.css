@@ -1,0 +1,91 @@
+/* Barra superior */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #222;
+  padding: 1rem;
+  color: white;
+  position: sticky;
+  top: 0;
+}
+
+.navbar .logo {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+}
+
+/* Botón hamburguesa oculto en desktop */
+.menu-btn {
+  font-size: 1.5rem;
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* Menú lateral (oculto por defecto) */
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: -250px; /* fuera de pantalla */
+  width: 250px;
+  height: 100%;
+  background: #333;
+  color: white;
+  padding: 2rem;
+  transition: right 0.3s ease;
+  z-index: 1000;
+}
+
+.side-menu.open {
+  right: 0;
+}
+
+.side-menu .close-btn {
+  font-size: 1.2rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+
+.side-menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.side-menu li {
+  margin: 1rem 0;
+}
+
+.side-menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* oculta en celu */
+  }
+
+  .menu-btn {
+    display: block; /* muestra hamburguesa */
+  }
+}
