@@ -69,7 +69,8 @@ body::before {
 
   content: '';
   position: fixed;
-  min-height: calc(100vh + env(safe-area-inset-bottom));
+  padding-top: env(safe-area-inset-top); /* Or use calc() with the env() function */
+  padding-bottom: env(safe-area-inset-bottom);
   top: 0;
   left: 0;
   width: 100%;
