@@ -8,7 +8,13 @@ import cors from "cors";
 
 const app = express();
 
-app.use(cors({ origin: true }));
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["*"]
+}));
+
+
 app.use(express.json());
 
 app.use('/api/scoreboard', scoreboardRouter);
