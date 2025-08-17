@@ -3,6 +3,8 @@ import ScoreLabel from "../components/scoreLabel.jsx"
 import "./scoreboard.css";
 import {useEffect, useState} from "react";
 import { ClipLoader } from 'react-spinners';
+import { AiOutlinePlus } from "react-icons/ai";
+import CreateModal from "../components/createModal.jsx";
 
 
 export default function Scoreboard() {
@@ -11,8 +13,10 @@ const rand = Math.floor(Math.random() * 5);
 
 var texts = ["Fucci fucci chuchis pupu puchi", "Tudino pasame el maniquin challenge", "El server es gratis pibe\nno te quejes", "ratatauvedoblepedopedopito", "chicles man es increible"]
 
-var [people, setPeople] = useState([]);
-var [loading, setLoading] = useState(true);
+const [people, setPeople] = useState([]);
+const [loading, setLoading] = useState(true);
+const [token, setToken] = useState(localStorage.getItem("token"));
+const [modalVisible, setModalVisible] = useState(false);
 
 useEffect(() => {
   fetch("https://meetings-scoreboard.onrender.com/api/scoreboard")
@@ -42,9 +46,33 @@ useEffect(() => {
   })
 }, []);
 
+function createUser(data) {
+  fetch("https://tu-backend.onrender.com/api/endpoint", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    },
+  body: JSON.stringify({
+    name: data.name,
+    surname: data.surname,
+    middlename: data.middlename,
+    score: data.score
+  })
+})
+  .then(res => res.json())
+  .then(response => {
+    console.log("Respuesta del servidor:", response);
+  })
+  .catch(err => {
+    console.error("Error al hacer POST:", err);
+  });
+}
+
 
   return ( 
   <section className="scoreboard">
+    {token && <CreateModal isOpen={modalVisible} onClose={() => setModalVisible(false)} handleCreate={createUser} />}
     <h1 className="scoreboard-title">TABLA DE POSICIONES</h1>
     {loading && <div className="loading">
       <ClipLoader color="#ffffffff" size={300} />
@@ -59,6 +87,9 @@ useEffect(() => {
         ))}
       </ul>
     </div>
+    {token && !loading && <div className="scoreboard-footer">
+      <button className="footer-button" onClick={() => setModalVisible(true)}> Añadir Participante <AiOutlinePlus /></button>
+    </div>}
   </section>
-    )
+  )
 }

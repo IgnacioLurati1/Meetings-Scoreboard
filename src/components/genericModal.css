@@ -1,0 +1,56 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.titleAndClose {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    margin: 0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+    
+}
+
+.modal-content {
+    background-color: #EDEDF2;
+    padding: 10px;
+    border-radius: 5px;
+    min-width: 330px;
+}
+
+.content-input {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.input {
+    margin-left: 10px;
+    padding: 5px;
+
+}
+
+.close {
+    cursor: pointer;
+    float: right;
+    font-size: 40px;
+}

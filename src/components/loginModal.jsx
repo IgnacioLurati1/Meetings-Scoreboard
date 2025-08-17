@@ -1,4 +1,5 @@
 import "./loginModal.css";
+import "./genericModal.css"
 import {useState} from "react";
 
 export default function LoginModal({ isOpen, onClose }) {
@@ -31,8 +32,8 @@ export default function LoginModal({ isOpen, onClose }) {
   }
 
   return (
-    <div className={`login-modal`}>
-      <div className="login-modal-content">
+    <div className={`modal`}>
+      <div className="modal-content">
         <div className="titleAndClose">
         <h2 className="title">Login</h2>
         <div className="close" onClick={onClose}>&times;</div>
