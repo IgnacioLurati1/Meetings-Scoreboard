@@ -14,6 +14,8 @@ app.use(cors({
   allowedHeaders: ["*"]
 }));
 
+app.options("*", cors());
+
 
 app.use(express.json());
 
