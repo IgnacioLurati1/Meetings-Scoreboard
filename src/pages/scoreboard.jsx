@@ -6,6 +6,8 @@ import { ClipLoader } from 'react-spinners';
 import { AiOutlinePlus } from "react-icons/ai";
 import  AddModal from "../components/addModal.jsx";
 import ModModal from "../components/modModal.jsx";
+import { ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 
 export default function Scoreboard() {
@@ -32,14 +34,14 @@ useEffect(() => {
     setPeople(data.sort((a, b) => b.score - a.score));
   })
   .catch(error => {
-    setLoading(false);
     console.log(error);
-    console.log("Failed to fetch data from the API");
+    setLoading(false);
+    toast.error("Hmm capaz el server está caido, dale tiempo")
   })
 }, []);
 
 function modUser(data, originalSurname) {
-  console.log(originalSurname);
+  toast.info("En eso andamos")
   fetch(`https://meetings-scoreboard.onrender.com/api/scoreboard/${encodeURIComponent(originalSurname)}`, {
     method: "PUT",
     headers: {
@@ -53,30 +55,34 @@ function modUser(data, originalSurname) {
       score: data.score
     })
   })
-  .then(res => res.json())
+  .then(res => {if(!res.ok){ throw new Error("Error al crear el usuario")} return res.json()})
   .then(response => {
     setPeople(prevPeople => prevPeople.map(person => person.id === response.id ? response : person));
     setEditModalVisible(false);
   })
   .catch(err => {
-    console.error("Error al hacer PUT:", err);
+    console.log(err);
+    toast.error("No se pudo modificar, capaz el server está caído o hiciste chanchada")
   });
 }
 
 function deleteUser(surname) {
+  toast.info("Eliminando a tudino, na mentira")
   fetch(`https://meetings-scoreboard.onrender.com/api/scoreboard/${surname}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`
     }
-  })
+  }).then(()=>{setPeople(prevPeople => prevPeople.filter(person => person.surname !== surname)); setEditModalVisible(false);})
   .catch(err => {
-    console.error("Error al hacer DELETE:", err);
+    console.log(err);
+    toast.error("No se pudo eliminar, capaz el server está caido")
   });
 }
 
 function createUser(data) {
+  toast.info("Creando usuario my friend")
   fetch("https://meetings-scoreboard.onrender.com/api/scoreboard", {
     method: "POST",
     headers: {
@@ -90,13 +96,14 @@ function createUser(data) {
     score: data.score
   })
 })
-  .then(res => res.json())
+  .then(res => {if(!res.ok){ throw new Error("Error al crear el usuario")} return res.json()})
   .then(response => {
     setPeople(prevPeople => [response, ...prevPeople]);
     setModalVisible(false);
   })
   .catch(err => {
-    console.error("Error al hacer POST:", err);
+    console.log(err);
+    toast.error("No se pudo añadir, capaz el server está caído o hiciste chanchada")
   });
 }
 
@@ -122,6 +129,8 @@ function createUser(data) {
     {token && !loading && <div className="scoreboard-footer">
       <button className="footer-button" onClick={() => setModalVisible(true)}> Añadir Participante <AiOutlinePlus /></button>
     </div>}
+    <ToastContainer position="top-right" autoClose={3000} />
+    {people.length === 0 && !loading && <h2 className="loading">No hay datos para mostrar</h2>}
   </section>
   )
 }
