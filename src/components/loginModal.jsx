@@ -21,6 +21,7 @@ export default function LoginModal({ isOpen, onClose }) {
           const data = await response.json();
           localStorage.setItem("token", data.token);
           console.log("Lo hemos logrado:", data);
+          location.reload();
           onClose();
         } else {
           throw new Error("Error al iniciar sesión");
@@ -30,6 +31,8 @@ export default function LoginModal({ isOpen, onClose }) {
       console.error("Error en el inicio de sesión: ", error);
     }
   }
+
+  
 
   return (
     <div className={`modal`}>

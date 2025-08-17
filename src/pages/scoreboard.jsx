@@ -47,7 +47,7 @@ useEffect(() => {
 }, []);
 
 function createUser(data) {
-  fetch("https://meetings-scoreboard.onrender.com/", {
+  fetch("https://meetings-scoreboard.onrender.com/api/scoreboard", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -63,6 +63,8 @@ function createUser(data) {
   .then(res => res.json())
   .then(response => {
     console.log("Respuesta del servidor:", response);
+    setPeople(prevPeople => [response, ...prevPeople]);
+    setModalVisible(false);
   })
   .catch(err => {
     console.error("Error al hacer POST:", err);

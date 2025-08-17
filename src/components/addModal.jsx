@@ -35,7 +35,7 @@ export default function AddModal({ isOpen, onClose, handleCreate }) {
             <input className="input" type="number" name="score" value={score} onChange={(e) => setScore(e.target.value)} />
         </div>
 
-          <button className="create-button" onClick={handleCreate}>Crear</button>
+          <button className="create-button" onClick={() => handleCreate({ name, surname, middlename, score })}>Crear</button>
       </div>
     </div>
   );    
