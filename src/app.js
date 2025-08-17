@@ -1,33 +1,27 @@
 import express from "express";
 import scoreboardRouter from './routers/scoreboardRouter.js';
 import loginRouter from './routers/loginRouter.js';
+import cors from 'cors';
 
-const app = express();
+const app = express(); 
 
-// CORS configurado solo para localhost
-app.use((req, res, next) => {
-  const allowedOrigin = "https://vercel.com/ignaciolurati1s-projects/meetings-scoreboard/3Pq6sHMSq8hSZCXExQr5tAjwDce8"; // tu frontend desplegado
-  const origin = req.headers.origin;
+const whitelist = ['http://localhost:5137', 'https://meetings-scoreboard-p6mjgu41m-ignaciolurati1s-projects.vercel.app'];
 
-  if (origin === allowedOrigin) {
-    res.header("Access-Control-Allow-Origin", origin);
-    res.header(
-      "Access-Control-Allow-Methods",
-      "GET,POST,PUT,DELETE,OPTIONS"
-    );
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Content-Type, Authorization"
-    );
-    res.header("Access-Control-Allow-Credentials", "true"); // si usás cookies o auth
-  }
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Acceso no permitido por CORS'));
+    }
+  },
+  exposedHeaders: 'Authorization',
+};
 
-  if (req.method === "OPTIONS") return res.sendStatus(204);
+// Aplica la configuración de CORS a toda la aplicación
+app.use(cors(corsOptions));
 
-  next();
-});
 
-// Middleware para parsear JSON
 app.use(express.json());
 
 // Rutas
