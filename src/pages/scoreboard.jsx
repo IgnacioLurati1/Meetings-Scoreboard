@@ -4,7 +4,7 @@ import "./scoreboard.css";
 import {useEffect, useState} from "react";
 import { ClipLoader } from 'react-spinners';
 import { AiOutlinePlus } from "react-icons/ai";
-import  CreateModal from "../components/createModal.jsx";
+import  AddModal from "../components/addModal.jsx";
 
 
 export default function Scoreboard() {
@@ -72,7 +72,7 @@ function createUser(data) {
 
   return ( 
   <section className="scoreboard">
-    {token && <CreateModal isOpen={modalVisible} onClose={() => setModalVisible(false)} handleCreate={createUser} />}
+    {token && <AddModal isOpen={modalVisible} onClose={() => setModalVisible(false)} handleCreate={createUser} />}
     <h1 className="scoreboard-title">TABLA DE POSICIONES</h1>
     {loading && <div className="loading">
       <ClipLoader color="#ffffffff" size={300} />

@@ -3,7 +3,7 @@ import "./createModal.css";
 import {useState} from "react";
 
 
-export default function CreateModal({ isOpen, onClose, handleCreate }) {
+export default function AddModal({ isOpen, onClose, handleCreate }) {
   if(!isOpen) return null;
 
   const [name, setName] = useState("");
