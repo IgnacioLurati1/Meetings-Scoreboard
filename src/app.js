@@ -11,7 +11,7 @@ app.use((req, res, next) => {
 });
 
 const whitelist = [
-  'https://meetings-scoreboard.vercel.app/'
+  'https://meetings-scoreboard.vercel.app'
 ];
 
 const corsOptions = {
