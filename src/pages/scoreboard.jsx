@@ -24,6 +24,12 @@ const [modalEditVisible, setEditModalVisible] = useState(false);
 const [selectedScore, setSelectedScore] = useState(null);
 
 useEffect(() => {
+  if (!isTokenValid() && token) {
+    localStorage.removeItem("token");
+    setToken(null);
+    location.reload();
+  }
+
   fetch("https://meetings-scoreboard.onrender.com/api/scoreboard")
   .then(response => {
     if(response.ok) return response.json()
@@ -38,9 +44,16 @@ useEffect(() => {
     setLoading(false);
     toast.error("Hmm capaz el server está caido, dale tiempo")
   })
+
 }, []);
 
 function modUser(data, originalSurname) {
+  if (!isTokenValid()) {
+    localStorage.removeItem("token");
+    toast.error("Token inválido, por favor inicia sesión de nuevo");
+    return;
+  }
+
   toast.info("En eso andamos")
   fetch(`https://meetings-scoreboard.onrender.com/api/scoreboard/${encodeURIComponent(originalSurname)}`, {
     method: "PUT",
@@ -67,6 +80,13 @@ function modUser(data, originalSurname) {
 }
 
 function deleteUser(surname) {
+  if (!isTokenValid()) {
+    localStorage.removeItem("token");
+    setToken(null);
+    toast.error("Token inválido, por favor inicia sesión de nuevo");
+    return;
+  }
+
   toast.info("Eliminando a tudino, na mentira")
   fetch(`https://meetings-scoreboard.onrender.com/api/scoreboard/${surname}`, {
     method: "DELETE",
@@ -82,6 +102,13 @@ function deleteUser(surname) {
 }
 
 function createUser(data) {
+  if (!isTokenValid()) {
+    localStorage.removeItem("token");
+    setToken(null);
+    toast.error("Token inválido, por favor inicia sesión de nuevo");
+    return;
+  }
+
   toast.info("Creando usuario my friend")
   fetch("https://meetings-scoreboard.onrender.com/api/scoreboard", {
     method: "POST",
@@ -105,6 +132,21 @@ function createUser(data) {
     console.log(err);
     toast.error("No se pudo añadir, capaz el server está caído o hiciste chanchada")
   });
+}
+
+function isTokenValid() {
+  const token = localStorage.getItem("token");
+  if (!token) return false;
+
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    const now = Math.floor(Date.now() / 1000);
+    return payload.exp > now;
+  } catch (err) {
+    console.error("Error leyendo token:", err);
+    return false;
+  }
+
 }
 
 
