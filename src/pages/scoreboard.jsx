@@ -157,7 +157,7 @@ function isTokenValid() {
     {token && selectedScore && <ModModal selectedScore={selectedScore} isOpen={modalEditVisible} onClose={() => setEditModalVisible(false)} handleDelete={() => deleteUser(selectedScore.surname)} handleMod={modUser} />}
     <h1 className="scoreboard-title">TABLA DE POSICIONES</h1>
     {loading && <div className="loading">
-      <ClipLoader color="#ffffffff" size={300} />
+      <ClipLoader color="#ffffffff" size={250} />
       <h1>{texts[rand]}</h1>
       </div>}
     <div className="scoreboard-grid">
