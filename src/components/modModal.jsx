@@ -32,7 +32,12 @@ export default function ModModal({ selectedScore, isOpen, onClose, handleMod, ha
         </div>
         <div className="content-input">
             Puntaje:
-            <input autoFocus className="input" type="number" name="score" value={score} onChange={(e) => setScore(e.target.value)} />
+            <input autoFocus className="input" type="text" name="score" value={score} onChange={(e) => {
+              const val = e.target.value;
+              if (/^-?\d*$/.test(val)) {
+                setScore(val);
+              }
+            }}  />
         </div>
         <div className="buttons">
           <button className={!surname.trim() ? "disabled-button" : "mod-button"} disabled={!surname.trim()} onClick={() => handleMod({ name, surname, middlename, score }, selectedScore.surname)}>Modificar</button>
