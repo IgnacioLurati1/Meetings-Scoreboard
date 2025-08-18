@@ -11,9 +11,7 @@ app.use((req, res, next) => {
 });
 
 const whitelist = [
-  'http://localhost:5173',
-  'http://localhost:5173/',
-  'https://meetings-scoreboard-p6mjgu41m-ignaciolurati1s-projects.vercel.app'
+  'https://meetings-scoreboard.vercel.app/'
 ];
 
 const corsOptions = {
@@ -21,7 +19,8 @@ const corsOptions = {
     // permitir requests sin origin (health checks/server-side)
     if (!origin) return callback(null, true);
     // permitir cualquier origin devolviendo true
-    return callback(null, true);
+    const allowed = whitelist.includes(origin);
+    return callback(null, allowed);
   },
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
