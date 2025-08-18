@@ -50,6 +50,7 @@ useEffect(() => {
 function modUser(data, originalSurname) {
   if (!isTokenValid()) {
     localStorage.removeItem("token");
+    setToken(null);
     toast.error("Token inválido, por favor inicia sesión de nuevo");
     return;
   }
