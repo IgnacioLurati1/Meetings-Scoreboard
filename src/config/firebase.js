@@ -1,7 +1,4 @@
 import admin from "firebase-admin";
-import { readFileSync } from 'fs';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
 import dotenv from 'dotenv';
 
 dotenv.config();
