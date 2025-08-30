@@ -15,7 +15,7 @@ export default function Scoreboard() {
 
 const rand = Math.floor(Math.random() * 5);
 
-var texts = ["Fucci fucci chuchis pupu puchi", "Tudino pasame el maniquin challenge", "El server es gratis pibe\nno te quejes", "ratatauvedoblepedopedopito", "chicles man es increible"]
+var texts = ["Fucci fucci chuchis pupu puchi", "Tudino pasame el maniquin challenge", "El server es gratis pibe no te quejes", "ratatauvedoblepedopedopito", "chicles man es increible"]
 
 const [people, setPeople] = useState([]);
 const [loading, setLoading] = useState(true);
@@ -166,7 +166,7 @@ function isTokenValid() {
           </li>
         ))}
 
-        {loading && Array.from({ length: 4 }).map((_, index) => (
+        {loading && Array.from({ length: 5 }).map((_, index) => (
           <li key={index} style={{ animation: "none", opacity: 1 }}>
             <SkeletonLabel />
           </li>
@@ -178,7 +178,7 @@ function isTokenValid() {
     </div>}
     
     {loading && 
-      <h1 className="loading" style={{top: "65%"}}>{texts[rand]}</h1>}
+      <h1 className="loading" style={{top: "75%"}}>{texts[rand]}</h1>}
     <ToastContainer position="top-right" autoClose={3000} />
     {people.length === 0 && !loading && <h2 className="loading">No hay datos para mostrar</h2>}
   </section>
