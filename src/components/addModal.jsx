@@ -32,7 +32,12 @@ export default function AddModal({ isOpen, onClose, handleCreate }) {
         </div>
         <div className="content-input">
             Puntaje:
-            <input className="input" type="number" name="score" value={score} onChange={(e) => setScore(e.target.value)} />
+            <input className="input" type="text" name="score" value={score} onChange={(e) => {
+              const val = e.target.value;
+              if (/^-?\d*$/.test(val)) {
+                setScore(val);
+              }
+            }} />
         </div>
 
           <button className={!surname.trim() ? "disabled-button" : "create-button"} disabled={!surname.trim()} onClick={() => handleCreate({ name, surname, middlename, score })}>Crear</button>
