@@ -11,7 +11,7 @@ app.use((req, res, next) => {
 });
 
 const whitelist = [
-  'https://meetings-scoreboard.vercel.app'
+  'https://meetings-scoreboard.vercel.app', 'https://meetings-scoreboard-git-prodfrontend-ignaciolurati1s-projects.vercel.app/'
 ];
 
 const corsOptions = {

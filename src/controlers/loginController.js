@@ -21,7 +21,7 @@ async function login(req, res) {
             return res.status(401).json({ error: 'La contraseña pertenece al usuario Juan, na mentira jajaja era re malo' });
         }
 
-        const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '3h' });
+        const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '3000h' });
         res.json({ token });
     } catch (error) {
         console.error('Error logging in:', error);
