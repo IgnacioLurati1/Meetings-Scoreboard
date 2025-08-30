@@ -8,6 +8,7 @@ import  AddModal from "../components/addModal.jsx";
 import ModModal from "../components/modModal.jsx";
 import { ToastContainer } from "react-toastify";
 import { toast } from "react-toastify";
+import SkeletonLabel from "../components/skeletonLabel.jsx";
 
 
 export default function Scoreboard() {
@@ -156,15 +157,18 @@ function isTokenValid() {
     {token && <AddModal isOpen={modalVisible} onClose={() => setModalVisible(false)} handleCreate={createUser} />}
     {token && selectedScore && <ModModal selectedScore={selectedScore} isOpen={modalEditVisible} onClose={() => setEditModalVisible(false)} handleDelete={() => deleteUser(selectedScore.surname)} handleMod={modUser} />}
     <h1 className="scoreboard-title">TABLA DE POSICIONES</h1>
-    {loading && <div className="loading">
-      <ClipLoader color="#ffffffff" size={250} />
-      <h1>{texts[rand]}</h1>
-      </div>}
     <div className="scoreboard-grid">
       <ul className="scoreboard-list">
-        {people.map((person, index) => (
+
+        {!loading && people.map((person, index) => (
           <li key={person.id} style={{ animationDelay: `${index * 0.15}s` }}>
             <ScoreLabel setSelectedScore={setSelectedScore} setEditModalVisible={setEditModalVisible} name={person.name} surname={person.surname} middlename={person.middlename} score={person.score} />
+          </li>
+        ))}
+
+        {loading && Array.from({ length: 4 }).map((_, index) => (
+          <li key={index} style={{ animation: "none", opacity: 1 }}>
+            <SkeletonLabel />
           </li>
         ))}
       </ul>
@@ -172,6 +176,9 @@ function isTokenValid() {
     {token && !loading && <div className="scoreboard-footer">
       <button className="footer-button" onClick={() => setModalVisible(true)}> Añadir Participante <AiOutlinePlus /></button>
     </div>}
+    
+    {loading && 
+      <h1 className="loading" style={{top: "65%"}}>{texts[rand]}</h1>}
     <ToastContainer position="top-right" autoClose={3000} />
     {people.length === 0 && !loading && <h2 className="loading">No hay datos para mostrar</h2>}
   </section>

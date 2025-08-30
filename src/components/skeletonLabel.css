@@ -1,0 +1,12 @@
+.skeleton-label{
+    color: white;
+    display: grid;
+    grid-template-columns: 1fr 7fr 1fr;
+    place-items: center;
+    border-top: 1px solid white;
+    background-color: #9f9f9f;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    opacity: 1;
+}
