@@ -1,2 +1,2 @@
 # Meetings-Scoreboard
-Sitio web oficial para juntadas con los pibes
+POC - REST / OpenApi
